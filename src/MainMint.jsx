@@ -15,7 +15,9 @@ const MainMint = ({ accounts, setAccounts }) => {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(roboPunksNFTAddress, roboPunksNFT.abi, signer);
       try {
-        const response = await contract.mint(BigNumber.from(mintAmount));
+        const response = await contract.mint(BigNumber.from(mintAmount), {
+          value: ethers.utils.parseEther((0.02 * mintAmount).toString()),
+        });
         console.log('response: ', response);
       } catch (error) {
         console.log('error ', error);
